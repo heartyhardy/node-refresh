@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const {_shop} = require('../util/path');
+
 router.use((req, res, next) => {
     console.log("Processing a new request");
     next();
 })
 
 router.get("/", (req, res, next) => {
-    res.send("<h1>Hello from Express!</h1>");
+    res.sendFile(_shop);
 })
 
 module.exports = router;
