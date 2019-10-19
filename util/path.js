@@ -1,7 +1,7 @@
 const path = require('path');
 
-const _root_ = process.mainModule.filename;
-const _home = path.join(_root_, '../', 'views');
+const _root_ = path.dirname(process.mainModule.filename);
+const _home = path.join(_root_, 'views');
 const _shop = path.join(_home, "shop.html");
 const _add_product = path.join(_home, "add-product.html");
 
