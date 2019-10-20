@@ -22,7 +22,7 @@ app.use(bparser.urlencoded({extended:false}));
 
 // Using routes
 app.use(express.static(_public));
-app.use("/admin",admin_route);
+app.use("/admin",admin_route.router);
 app.use(shop_route);
 app.use(err_route);
 

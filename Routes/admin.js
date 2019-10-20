@@ -3,6 +3,8 @@ const router = express.Router();
 
 const {_add_product} = require('../util/path');
 
+const products = [];
+
 // Triggers only for GET method
 router.get("/add-product", (req, res, next) => {
     res.sendFile(_add_product);
@@ -10,8 +12,16 @@ router.get("/add-product", (req, res, next) => {
 
 // Triggers only for POST method
 router.post("/add-product", (req, res, next) => {
-    console.log(req.body.title);
+
+    let newProduct = req.body.title;
+
+    if(req.body.title){
+        products.push({ title: newProduct});
+    }
     res.redirect("/");
 })
 
-module.exports = router;
+module.exports = {
+    router,
+    products
+}
