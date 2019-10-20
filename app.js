@@ -5,6 +5,8 @@ const admin_route = require('./Routes/admin');
 const shop_route = require('./Routes/shop');
 const err_route = require('./Routes/404');
 
+const {_public} =require('./util/path');
+
 const PORT = 3000;
     
 const app = express();
@@ -19,6 +21,7 @@ app.use(bparser.urlencoded({extended:false}));
 // Using middleware
 
 // Using routes
+app.use(express.static(_public));
 app.use("/admin",admin_route);
 app.use(shop_route);
 app.use(err_route);
