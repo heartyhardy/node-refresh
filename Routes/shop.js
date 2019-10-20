@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {_shop} = require('../util/path');
+const admin_data = require('./admin');
 
 router.use((req, res, next) => {
     console.log("Processing a new request");
@@ -9,7 +9,7 @@ router.use((req, res, next) => {
 })
 
 router.get("/", (req, res, next) => {
-    res.sendFile(_shop);
+    res.render('shop', {products: admin_data.products, docTitle: 'Shop'});
 })
 
 module.exports = router;

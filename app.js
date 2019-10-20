@@ -11,6 +11,11 @@ const PORT = 3000;
     
 const app = express();
 
+// Set Templating engine and views folder
+app.set('view engine', 'pug');
+// Not required as 'views' is the default value set by express
+app.set('views', 'views');
+
 // Use parser
 
 // bparser.urlencoded registers a another middleware
