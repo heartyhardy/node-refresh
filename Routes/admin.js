@@ -5,7 +5,7 @@ const products = [];
 
 // Triggers only for GET method
 router.get("/add-product", (req, res, next) => {
-    res.render('add-product');
+    res.render('add-product', {pageTitle: "Add a new product"});
 })
 
 // Triggers only for POST method

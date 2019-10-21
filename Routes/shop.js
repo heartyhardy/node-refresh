@@ -9,7 +9,7 @@ router.use((req, res, next) => {
 })
 
 router.get("/", (req, res, next) => {
-    res.render('shop', {products: admin_data.products, docTitle: 'Shop'});
+    res.render('shop', {products: admin_data.products, pageTitle: 'Shop'});
 })
 
 module.exports = router;

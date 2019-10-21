@@ -5,7 +5,8 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title #{pageTitle}
-        link(rel="stylesheet", href="/css/add-product.css")
+        link(rel="stylesheet", href="/css/shop.css")
+        link(rel="stylesheet", href="/css/404.css")
     body
         header.main-header
             nav.main-nav
@@ -13,11 +14,7 @@ html(lang="en")
                     li.main-nav__item
                         a(href="/") Shop
                     li.main-nav__item
-                        a.link--active(href="/admin/add-product") Add Product
+                        a(href="/admin/add-product") Add Product
         main.main
-            h1.main__title All Products
-            br
-            form.form(action='/admin/add-product' method='POST')
-                label.form__element(for="title") Product title
-                input.form__input(type='text' name='title')
-                button.form__submit(type='submit') Add
+            h1.main__h1 Oops!, We cannot find the page you searched.
+            a.homepage(href="/") Back to shop
