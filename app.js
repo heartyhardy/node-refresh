@@ -12,7 +12,7 @@ const PORT = 3000;
 const app = express();
 
 // Set Templating engine and views folder
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 // Not required as 'views' is the default value set by express
 app.set('views', 'views');
 
