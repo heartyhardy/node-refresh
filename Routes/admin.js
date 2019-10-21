@@ -1,26 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const products = [];
+const productsController = require('../controllers/products');
 
 // Triggers only for GET method
-router.get("/add-product", (req, res, next) => {
-    res.render('add-product', {pageTitle: "Add a new product", path: "add-product"});
-})
+router.get("/add-product", productsController.getAddProduct);
 
 // Triggers only for POST method
-router.post("/add-product", (req, res, next) => {
+router.post("/add-product", productsController.postAddProduct);
 
-    let newProduct = req.body.title;
-
-    if(req.body.title){
-        products.push({ title: newProduct });
-    }
-    
-    res.redirect("/");
-})
-
-module.exports = {
-    router,
-    products
-}
+module.exports = router;
