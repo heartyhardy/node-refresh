@@ -2,7 +2,10 @@
     <nav class="main-nav">
         <ul class="main-nav__itemlist">
             <li class="main-nav__item"><a class="<%= path === 'shop' ? 'link--active' : '' %>" href="/">Shop</a></li>
+            <li class="main-nav__item"><a class="<%= path === 'products' ? 'link--active' : '' %>" href="/products">Products</a></li>
+            <li class="main-nav__item"><a class="<%= path === 'cart' ? 'link--active' : '' %>" href="/cart">Cart</a></li>
             <li class="main-nav__item"><a class="<%= path === 'add-product' ? 'link--active' : '' %>" href="/admin/add-product">Add product</a></li>
+            <li class="main-nav__item"><a class="<%= path === 'view-products' ? 'link--active' : '' %>" href="/admin/view-products">Products</a></li>
         </ul>
     </nav>
 </header>

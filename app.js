@@ -1,6 +1,7 @@
 const express = require('express');
 const bparser = require('body-parser');
 
+const root_route = require('./routes/index');
 const admin_route = require('./routes/admin');
 const shop_route = require('./routes/shop');
 const err_route = require('./routes/404');
@@ -27,6 +28,7 @@ app.use(bparser.urlencoded({extended:false}));
 
 // Using routes
 app.use(express.static(_public));
+app.use(root_route);
 app.use("/admin",admin_route);
 app.use(shop_route);
 app.use(err_route);
