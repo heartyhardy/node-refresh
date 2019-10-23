@@ -2,8 +2,11 @@ const fs = require('fs');
 const {_filedb} = require('../util/path');
 
 module.exports = class Product {
-    constructor(title){
+    constructor(title, img, price, description){
         this.title = title;
+        this.img = img;
+        this.price = price;
+        this.description = description;
     }
 
     save(){

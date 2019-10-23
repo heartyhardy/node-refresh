@@ -8,12 +8,15 @@ exports.getAddProduct = (req, res, next) => {
 // ADMIN - POST - ADD PRODUCT
 exports.postAddProduct = (req, res, next) => {
 
-    let newProduct = req.body.title;
+    let title = req.body.title;
+    let img = req.body.imglink;
+    let price = req.body.price;
+    let desc = req.body.description;
 
-    if(req.body.title){
-        const product = new Product(newProduct);
+    if(req.body.title && img && price && desc){
+        const product = new Product(title, img, price, desc);
         product.save().then(isSuccessful => {
-            console.log("File saved!");
+            console.log("Record saved!");
         })
         .catch(err => {
             console.log(err);
@@ -27,13 +30,28 @@ exports.postAddProduct = (req, res, next) => {
 exports.getAllProducts = (req, res, next) => {
     const products = Product.fetchAll()
         .then(data => {
-            res.render('shop/list-products', {products: data, pageTitle: "Shop", path: "products"});
+            res.render(
+                'shop/list-products', {products: data, pageTitle: "Shop", path: "products"});
         })
         .catch(err => {
             console.log(err);
             res.render('shop/list-products', {products: [], pageTitle: "Shop", path: "products"});
         })
 }
+
+// ADMIN - GET - VIEW PRODUCTS
+exports.viewAllProducts = (req, res, next) => {
+    const products = Product.fetchAll()
+        .then(data => {
+            res.render(
+                'admin/view-products', {products: data, pageTitle: "Admin - View products", path: "view-products"});
+        })
+        .catch(err => {
+            console.log(err);
+            res.render('admin/view-products', {products: [], pageTitle: "Admin - View products", path: "view-products"});
+        })
+}
+
 
 // ADMIN - PUT - EDIT PRODUCT
 exports.editProduct = (req, res, next) => {

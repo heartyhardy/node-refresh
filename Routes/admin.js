@@ -3,7 +3,7 @@ const router = express.Router();
 
 const productsController = require('../controllers/products');
 
-router.get('/view-products', productsController.getAllProducts);
+router.get('/view-products', productsController.viewAllProducts);
 
 // Triggers only for GET method
 router.get("/add-product", productsController.getAddProduct);
@@ -15,6 +15,6 @@ router.post("/add-product", productsController.postAddProduct);
 router.get("/edit-product", productsController.editProduct);
 
 // Has to be DEL
-router.get("/del-product" , productsController.removeProduct);
+router.post("/delete-product" , productsController.removeProduct);
 
 module.exports = router;
