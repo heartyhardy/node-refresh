@@ -10,6 +10,9 @@ module.exports = class Product {
     }
 
     save(){
+
+        this.id = Math.random().toString();
+        
         return new Promise((resolve, reject) => {
             fs.readFile(_filedb, (err, content) => {
                 let products = [];

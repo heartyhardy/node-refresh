@@ -11,7 +11,7 @@ router.use((req, res, next) => {
 
 router.get("/products", productsController.getAllProducts);
 
-router.get("/product-details" , productsController.getProductDetails);
+router.get("/products/:productid", productsController.getProductDetails);
 
 router.get("/orders", cartController.viewOrders);
 
