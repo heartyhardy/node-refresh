@@ -10,6 +10,7 @@ const _add_product = path.join(_home, "add-product.html");
 const _not_found = path.join(_home, "404.html");
 
 const _filedb = path.join(_data, 'products.json');
+const _cartdb = path.join(_data, 'cart.json');
 
 
 module.exports = {
@@ -20,5 +21,6 @@ module.exports = {
     _shop,
     _add_product,
     _not_found,
-    _filedb
+    _filedb,
+    _cartdb
 }
