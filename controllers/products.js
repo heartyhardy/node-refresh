@@ -61,8 +61,13 @@ exports.editProduct = (req, res, next) => {
 // USER - GET - PRODUCT DETAILS
 exports.getProductDetails = (req, res, next) => {
     let productid= req.params.productid;
-    console.log(productid);
-    res.render('shop/product-detail', {pageTitle: "Product details", path:"product-detail"});
+    const specificProduct = Product.getById(productid)
+        .then(data => {
+            res.render('shop/product-detail', {product: data, pageTitle: data.title, path:"products"});
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 // ADMIN - DEL - REMOVE PRODUCT

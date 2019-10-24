@@ -12,7 +12,7 @@ module.exports = class Product {
     save(){
 
         this.id = Math.random().toString();
-        
+
         return new Promise((resolve, reject) => {
             fs.readFile(_filedb, (err, content) => {
                 let products = [];
@@ -45,4 +45,26 @@ module.exports = class Product {
         })
 
     }
+
+    static getById(id){
+        return new Promise((resolve, reject) => {
+            let products = [];
+
+            fs.readFile(_filedb, (err, content) => {
+                if(err){
+                    reject(err);
+                }
+                else{
+                    const data = JSON.parse(content);
+                    let srcElement = data.find(e => e.id === id);
+
+                    if(srcElement){
+                        resolve(srcElement);
+                    }
+                    else reject(null);
+                }
+            })
+        })
+    }
+
 }
