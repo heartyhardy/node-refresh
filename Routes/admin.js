@@ -12,7 +12,9 @@ router.get("/add-product", productsController.getAddProduct);
 router.post("/add-product", productsController.postAddProduct);
 
 //  Has to be PUT
-router.get("/edit-product", productsController.editProduct);
+router.get("/edit-product/:productid", productsController.editProduct);
+
+router.post("/edit-product", productsController.updateProduct);
 
 // Has to be DEL
 router.post("/delete-product" , productsController.removeProduct);
