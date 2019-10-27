@@ -5,7 +5,7 @@ exports.getHomepage = (req, res, next) => {
     const products = Product.fetchAll()
         .then(data => {
             res.render(
-                'shop/index', {products: data, pageTitle: "Shop", path: "shop"});
+                'shop/index', {products: data[0], pageTitle: "Shop", path: "shop"});
         })
         .catch(err => {
             console.log(err);
