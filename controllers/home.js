@@ -2,10 +2,10 @@ const Product = require('../models/product');
 
 // USER - GET - GET ALL PRODUCTS
 exports.getHomepage = (req, res, next) => {
-    const products = Product.fetchAll()
+    const products = Product.findAll()
         .then(data => {
             res.render(
-                'shop/index', {products: data[0], pageTitle: "Shop", path: "shop"});
+                'shop/index', {products: data, pageTitle: "Shop", path: "shop"});
         })
         .catch(err => {
             console.log(err);

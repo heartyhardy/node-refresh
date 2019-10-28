@@ -1,6 +1,8 @@
 const express = require('express');
 const bparser = require('body-parser');
 
+const sequelize = require('./util/db-connect');
+
 const root_route = require('./routes/index');
 const admin_route = require('./routes/admin');
 const shop_route = require('./routes/shop');
@@ -33,4 +35,15 @@ app.use("/admin",admin_route);
 app.use(shop_route);
 app.use(err_route);
 
+// Sync tables to db if they dont exist
+sequelize.sync()
+    .then(result => {
+        console.log("Database initialized.");
+    })
+    .catch(err => {
+        console.log("Database could not be initialized. Quitting...");
+        process.exit(1);
+    });
+
+// Start the express server
 app.listen(PORT, ()=>console.log("Server started!"));
