@@ -16,7 +16,7 @@ router.get("/edit-product/:productid", productsController.editProduct);
 
 router.post("/edit-product", productsController.updateProduct);
 
-// Has to be DEL
+// // Has to be DEL
 router.post("/delete-product" , productsController.removeProduct);
 
 module.exports = router;

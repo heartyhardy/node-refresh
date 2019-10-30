@@ -1,8 +1,30 @@
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-const Sequelize = require('sequelize').Sequelize;
+let _db;
 
-const sequelize = new Sequelize('udemy-node-max', 'root', '123321', {
-    host: 'localhost', dialect: 'mysql'
-});
+const connect = () => {
+    return new Promise((resolve, reject) => {
+        MongoClient.connect(
+            'mongodb://localhost:27017/shop',
+            { useUnifiedTopology: true }
+        )
+            .then(client => {
+                console.log("Connected to MongoDb cloud");
+                _db = client.db();
+                resolve(null)
+            })
+            .catch(err => reject(err));
+    })
+}
 
-module.exports = sequelize;
+const db = () => {
+    console.log(_db);
+    if (_db) {
+        return _db;
+    }
+    throw "Not connected to database";
+}
+
+exports.connect = connect;
+exports.db = db;

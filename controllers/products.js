@@ -1,4 +1,4 @@
-
+const {ObjectId} = require('mongodb');
 const Product = require('../models/product');
 
 // ADMIN - GET - ADD PRODUCT
@@ -15,16 +15,16 @@ exports.postAddProduct = (req, res, next) => {
     let desc = req.body.description;
 
     if (title && img && price && desc) {
-        Product.create({
-            title,
-            description: desc,
-            price,
-            img
-        })
+
+        const product = new Product(title, price, desc, img);
+        
+        product.save()
             .then(result => {
+                console.log("ADDD", result);
                 res.status(200).redirect('/admin/view-products');
             })
-            .catch(err => {
+            .catch(err=> {
+                console.log("ERROR", err);
                 res.status(500).redirect('/');
             });
     }
@@ -32,7 +32,7 @@ exports.postAddProduct = (req, res, next) => {
 
 // USER - GET - GET ALL PRODUCTS
 exports.getAllProducts = (req, res, next) => {
-    const products = Product.findAll()
+    const products = Product.fetchAll()
         .then(data => {
             res.render(
                 'shop/list-products', { products: data, pageTitle: "Shop", path: "products" });
@@ -45,7 +45,7 @@ exports.getAllProducts = (req, res, next) => {
 
 // ADMIN - GET - VIEW PRODUCTS
 exports.viewAllProducts = (req, res, next) => {
-    const products = Product.findAll()
+    const products = Product.fetchAll()
         .then(data => {
             res.render(
                 'admin/view-products', { products: data, pageTitle: "Admin - View products", path: "view-products" });
@@ -67,9 +67,10 @@ exports.editProduct = (req, res, next) => {
         return res.redirect("/");
     }
 
-    Product.findByPk(productId)
+    const products = Product.fetchById(productId)
         .then(data => {
-            res.render('admin/edit-product', { product: data, edit: editMode, pageTitle: "Edit product", path: "edit-product" });
+            const product = data;
+            res.render('admin/edit-product', { product: product, edit: editMode, pageTitle: "Edit product", path: "edit-product" });
         })
         .catch(err => {
             return res.redirect("/");
@@ -85,21 +86,14 @@ exports.updateProduct = (req, res, next) => {
     let description = req.body.description;
 
     if (id && title && img && price && description) {
-        Product.findByPk(id)
-            .then(result => {
-                result.title = title;
-                result.img = img;
-                result.price = price;
-                result.description = description;
-                return result.save();
-            })
+
+        const product = new Product(title, price,description,img, id);
+        product.save()
             .then(saved => {
-                console.log(saved);
                 res.redirect("/admin/view-products");
 
             })
             .catch(err => {
-                console.log(err);
                 res.redirect("/admin/view-products");
             })
     }
@@ -108,9 +102,8 @@ exports.updateProduct = (req, res, next) => {
 // USER - GET - PRODUCT DETAILS
 exports.getProductDetails = (req, res, next) => {
     let productid = req.params.productid;
-    const specificProduct = Product.findByPk(productid)
+    const specificProduct = Product.fetchById(productid)
         .then(data => {
-            console.log(data[0]);
             res.render('shop/product-detail', { product: data, pageTitle: data.title, path: "products" });
         })
         .catch(err => {
@@ -125,11 +118,9 @@ exports.removeProduct = (req, res, next) => {
 
     if (productid) {
         //remove
-        Product.findByPk(productid)
-            .then(result => {
-                return result.destroy();
-            })
-            .then(deleted => {
+        const products = Product.deleteById(productid)
+            .then(() => {
+                console.log("Deleted a record");
                 res.redirect("/admin/view-products");
             })
             .catch(err => console.log(err));
