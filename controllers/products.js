@@ -13,10 +13,11 @@ exports.postAddProduct = (req, res, next) => {
     let img = req.body.imglink;
     let price = req.body.price;
     let desc = req.body.description;
+    let user = req.user;
 
     if (title && img && price && desc) {
 
-        const product = new Product(title, price, desc, img);
+        const product = new Product(title, price, desc, img, null, user._id);
         
         product.save()
             .then(result => {

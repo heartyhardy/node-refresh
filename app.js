@@ -7,6 +7,7 @@ const shop_route = require('./routes/shop');
 // const err_route = require('./routes/404');
 
 const {connect} = require('./util/db-connect');
+const User = require('./models/user');
 
 const { _public } = require('./util/path');
 
@@ -30,6 +31,16 @@ app.use(bparser.urlencoded({ extended: false }));
 
 // Using routes
 app.use(express.static(_public));
+
+// Set a user since no auth yet
+app.use((req, res, next) => {
+    User.findById("5dbb8d0372ecf12450866af1")
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err=>console.log(err));
+})
 
 
 app.use(root_route);
