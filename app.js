@@ -1,5 +1,7 @@
 const express = require('express');
 const bparser = require('body-parser');
+const session = require('express-session');
+const Store = require('connect-mongodb-session')(session);
 
 const root_route = require('./routes/index');
 const admin_route = require('./routes/admin');
@@ -14,6 +16,12 @@ const { _public } = require('./util/path');
 const PORT = 3000;
 
 const app = express();
+
+const store = new Store({
+    //if using atlas remove string after collection name ex: retry?true
+    uri: "mongodb://localhost:27017/shop",
+    collection: 'sessions'
+})
 
 // Set Templating engine and views folder
 app.set('view engine', 'ejs');
@@ -31,6 +39,14 @@ app.use(bparser.urlencoded({ extended: false }));
 
 // Using routes
 app.use(express.static(_public));
+
+// Set session defaults
+app.use(session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store
+}))
 
 // Set a user since no auth yet
 app.use((req, res, next) => {
